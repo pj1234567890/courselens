@@ -100,6 +100,8 @@ public class IngestionService {
 
    doc.status = "FAILED";
    doc.processingError = clean(ex);
+   doc.pageCount = 0;
+   doc.pages.clear();
 
    return docs.save(doc);
   }

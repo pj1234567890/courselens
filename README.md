@@ -112,10 +112,9 @@ Set the values in your shell or IDE; `.env` is ignored and is not loaded automat
 
 ## PostgreSQL + pgvector Setup
 
-Create a `courselens` database, install its `vector` extension, and enable the PostgreSQL profile. Flyway creates the schema and HNSW index.
+Create a `courselens` database, install its `vector` extension, and set PostgreSQL credentials. Flyway creates the schema and HNSW index.
 
 ```bash
-set SPRING_PROFILES_ACTIVE=postgres
 set DATABASE_URL=jdbc:postgresql://localhost:5432/courselens
 set DATABASE_USERNAME=postgres
 set DATABASE_PASSWORD=replace_me
@@ -146,10 +145,6 @@ Open `http://localhost:4200`; its development proxy forwards `/api` to port 8080
 
 Questions outside uploaded material return `NOT_COVERED`.
 
-## Screenshots / Demo
-
-Add screenshots or a short recording here before publishing. The laptop-ready interface presents materials, conversation, and evidence side by side.
-
 ## Limitations
 
 - A live pipeline needs PostgreSQL and Gemini credentials.
@@ -163,6 +158,3 @@ Add screenshots or a short recording here before publishing. The laptop-ready in
 - Rendered PPTX slide previews.
 - Collection controls and real-run evaluation dashboards.
 
-## License
-
-No license has been selected yet. Add one before redistribution.
