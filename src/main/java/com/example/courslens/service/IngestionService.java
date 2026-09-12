@@ -123,7 +123,8 @@ public class IngestionService {
    * Exact page-image storage can be added later when the
    * source viewer is implemented.
    */
-  page.imagePath = null;
+  // An uploaded image is already a single-page original and can be shown safely.
+  page.imagePath = "IMAGE".equals(source.sourceType()) ? doc.storagePath : null;
 
   page.handwritten = source.handwritten();
 

@@ -13,7 +13,7 @@ public interface ChunkRepository extends JpaRepository<Chunk,UUID>{
  @Query(value="""
    SELECT c.id AS "chunkId", p.id AS "pageId", d.id AS "documentId",
           d.original_filename AS "documentName", p.page_number AS "pageNumber",
-          c.chunk_text AS text, p.handwritten AS handwritten,
+          c.chunk_text AS text, p.handwritten AS handwritten, p.source_type AS "sourceType",
           c.embedding <=> CAST(:queryVector AS vector) AS distance
    FROM chunks c
    JOIN document_pages p ON p.id = c.document_page_id
@@ -26,6 +26,6 @@ public interface ChunkRepository extends JpaRepository<Chunk,UUID>{
 
  interface RetrievedChunk {
   UUID getChunkId(); UUID getPageId(); UUID getDocumentId(); String getDocumentName();
-  int getPageNumber(); String getText(); boolean getHandwritten(); double getDistance();
+  int getPageNumber(); String getText(); boolean getHandwritten(); String getSourceType(); double getDistance();
  }
 }

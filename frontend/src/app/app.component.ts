@@ -1,0 +1,15 @@
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, ViewChild, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AskResponse, ChatMessage, CourseApiService, DocumentView, Source } from './course-api.service';
+@Component({selector:'app-root',standalone:true,imports:[CommonModule,FormsModule],templateUrl:'./app.component.html',styleUrl:'./app.component.css'})
+export class AppComponent {
+ @ViewChild('picker') picker?:ElementRef<HTMLInputElement>; documents=signal<DocumentView[]>([]);messages=signal<ChatMessage[]>([]);selected=signal<DocumentView|null>(null);question='';conversationId=localStorage.getItem('courselens.conversationId')||undefined;loading=signal(false);uploading=signal(false);error=signal('');drag=signal(false);activeSource=signal<Source|null>(null);
+ constructor(private api:CourseApiService){this.refresh();if(this.conversationId)this.loadHistory();}
+ async refresh(){try{this.documents.set(await this.api.documents());}catch{this.error.set('Could not load uploaded materials. Is the backend running?');}}
+ async loadHistory(){if(!this.conversationId)return;try{this.messages.set(await this.api.messages(this.conversationId));}catch{localStorage.removeItem('courselens.conversationId');this.conversationId=undefined;}}
+ choose(file?:File){if(!file)return;const ext=file.name.split('.').pop()?.toLowerCase();if(!ext||!['pdf','pptx','txt','md','png','jpg','jpeg'].includes(ext)){this.error.set('Choose a PDF, PPTX, TXT, Markdown, PNG, JPG, or JPEG file.');return;}this.upload(file);}
+ async upload(file:File){this.uploading.set(true);this.error.set('');try{const doc=await this.api.upload(file);this.documents.set([doc,...this.documents()]);this.selected.set(doc);}catch(e){this.error.set(e instanceof Error?e.message:'Upload failed.');}finally{this.uploading.set(false);}}
+ async ask(){const text=this.question.trim();if(!text||this.loading())return;this.question='';this.loading.set(true);this.error.set('');this.messages.update(items=>[...items,{id:'pending',role:'USER',content:text,createdAt:new Date().toISOString()}]);try{const result:AskResponse=await this.api.ask(text,this.conversationId);this.conversationId=result.conversationId;localStorage.setItem('courselens.conversationId',result.conversationId);this.messages.update(items=>[...items,{id:crypto.randomUUID(),role:'ASSISTANT',content:result.answer,createdAt:new Date().toISOString()}]);if(result.sources.length)this.activeSource.set(result.sources[0]);}catch(e){this.messages.update(items=>items.filter(item=>item.id!=='pending'));this.error.set(e instanceof Error?e.message:'Question failed.');}finally{this.loading.set(false);}}
+ openSource(source:Source){this.activeSource.set(source);window.open(this.api.sourceUrl(source),'courselens-source');} newConversation(){this.conversationId=undefined;localStorage.removeItem('courselens.conversationId');this.messages.set([]);this.activeSource.set(null);} statusClass(doc:DocumentView){return doc.status.toLowerCase();}
+}
