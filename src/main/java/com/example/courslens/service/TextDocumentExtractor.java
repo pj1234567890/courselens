@@ -1,0 +1,2 @@
+package com.example.courslens.service; import org.springframework.stereotype.Component; import java.nio.charset.StandardCharsets; import java.nio.file.*; import java.util.*;
+@Component class TextDocumentExtractor implements DocumentExtractor {public boolean supports(String t){return t.equals("TEXT")||t.equals("MARKDOWN");}public List<ExtractedPage> extract(Path f,String m)throws Exception{return List.of(new ExtractedPage(1,Files.readString(f,StandardCharsets.UTF_8),false,"TEXT"));}}

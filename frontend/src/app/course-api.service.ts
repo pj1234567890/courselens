@@ -1,0 +1,2 @@
+import { Injectable } from '@angular/core';
+@Injectable({providedIn:'root'}) export class CourseApiService { async ask(question:string,conversationId?:string){return fetch('/api/questions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,conversationId})}).then(r=>r.json())} async upload(file:File){const form=new FormData();form.append('file',file);return fetch('/api/documents',{method:'POST',body:form}).then(r=>r.json())} }

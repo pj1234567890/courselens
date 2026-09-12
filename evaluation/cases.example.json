@@ -1,0 +1,4 @@
+[
+  {"question":"What is the definition introduced in lecture one?","expectedStatus":"ANSWERED","expectedSources":["Lecture 1.pdf#1"]},
+  {"question":"What is the capital of Mars?","expectedStatus":"NOT_COVERED","expectedSources":[]}
+]

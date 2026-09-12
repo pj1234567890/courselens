@@ -1,0 +1,1 @@
+package com.example.courslens.service; import java.nio.file.Path; import java.util.*; public interface DocumentExtractor { boolean supports(String type); List<ExtractedPage> extract(Path file,String mime) throws Exception; }
