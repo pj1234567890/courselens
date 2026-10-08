@@ -1,0 +1,91 @@
+name: Deploy CourseLens to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build Angular app
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve build output directory from angular.json
+        id: output
+        run: |
+          PROJECT_NAME=$(node -p "Object.keys(require('./angular.json').projects)[0]")
+          OUTPUT_PATH=$(node -p "require('./angular.json').projects[Object.keys(require('./angular.json').projects)[0]].architect.build.options.outputPath")
+          BROWSER_DIR="$OUTPUT_PATH/browser"
+          # The Angular `application` builder emits browser files into <outputPath>/browser;
+          # fall back to the raw outputPath for the legacy `browser` builder.
+          if [ ! -d "$BROWSER_DIR" ]; then BROWSER_DIR="$OUTPUT_PATH"; fi
+          echo "project=$PROJECT_NAME" >> "$GITHUB_OUTPUT"
+          echo "dir=frontend/$BROWSER_DIR" >> "$GITHUB_OUTPUT"
+          echo "Resolved project '$PROJECT_NAME', browser output: frontend/$BROWSER_DIR"
+
+      - name: Build (production)
+        # angular.json defines no explicit `configurations`; the `application`
+        # builder builds in production mode (minified, optimized) by default.
+        # Relative base href keeps asset URLs correct on both the *.github.io
+        # project URL and the courselens.me custom domain.
+        run: npm run build -- --base-href ./
+
+      - name: Prepare Pages artifact (SPA fallback, nojekyll, custom domain)
+        working-directory: ${{ github.workspace }}
+        run: |
+          DIR="${{ steps.output.outputs.dir }}"
+          test -f "$DIR/index.html"
+          # Serve index.html for deep links (e.g. /app) since GitHub Pages has no SPA rewrite
+          cp "$DIR/index.html" "$DIR/404.html"
+          # Skip Jekyll processing
+          touch "$DIR/.nojekyll"
+          # Custom domain: courselens.me (also configure + verify it once in Settings -> Pages)
+          echo "courselens.me" > "$DIR/CNAME"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.output.outputs.dir }}
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - id: deployment
+        name: Deploy artifact
+        uses: actions/deploy-pages@v4
