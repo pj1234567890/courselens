@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AskResponse, ChatMessage, CourseApiService, DocumentView, Source } from './course-api.service';
-@Component({selector:'app-root',standalone:true,imports:[CommonModule,FormsModule],templateUrl:'./app.component.html',styleUrl:'./app.component.css'})
+import { LandingComponent } from './landing/landing.component';
+@Component({selector:'app-root',standalone:true,imports:[CommonModule,FormsModule,LandingComponent],templateUrl:'./app.component.html',styleUrl:'./app.component.css'})
 export class AppComponent {
+ showLanding=signal(window.location.pathname==='/'||window.location.pathname==='/index.html');
  @ViewChild('picker') picker?:ElementRef<HTMLInputElement>; documents=signal<DocumentView[]>([]);messages=signal<ChatMessage[]>([]);selected=signal<DocumentView|null>(null);question='';conversationId=localStorage.getItem('courselens.conversationId')||undefined;loading=signal(false);uploading=signal(false);error=signal('');drag=signal(false);activeSource=signal<Source|null>(null);
  constructor(private api:CourseApiService){this.refresh();if(this.conversationId)this.loadHistory();}
  async refresh(){try{this.documents.set(await this.api.documents());}catch{this.error.set('Could not load uploaded materials. Is the backend running?');}}

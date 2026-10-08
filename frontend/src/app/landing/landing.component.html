@@ -1,0 +1,211 @@
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a class="brand" href="/" (click)="closeMenu()"><span class="mark" aria-hidden="true">◉</span>CourseLens</a>
+    <button class="menu-btn" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()" aria-controls="nav-links" aria-label="Toggle navigation menu">☰</button>
+    <div id="nav-links" class="links" [class.open]="menuOpen()">
+      <a href="#product" (click)="closeMenu()">Product</a>
+      <a href="#features" (click)="closeMenu()">Features</a>
+      <a href="#how" (click)="closeMenu()">How It Works</a>
+      <a href="#technology" (click)="closeMenu()">Technology</a>
+      <a href="#about" (click)="closeMenu()">About</a>
+      <a class="btn btn-primary" href="/app" (click)="closeMenu()">Get Started</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="pill">Every answer traceable to its source</span>
+      <h1>Turn your course material into an <em>intelligent learning companion.</em></h1>
+      <p class="lede">CourseLens helps students upload, search, understand, and interact with their course material using AI-powered semantic retrieval and contextual conversations.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/app">Get Started</a>
+        <a class="btn btn-ghost" href="#product">Explore CourseLens</a>
+      </div>
+      <ul class="hero-points">
+        <li>Answers grounded only in what you upload</li>
+        <li>Semantic search across PDFs, slides, and notes</li>
+        <li>A clear “not covered” when your material has no answer</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="mock" role="img" aria-label="Preview of the CourseLens study interface: uploaded materials, a grounded answer, and cited evidence">
+        <div class="mock-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="mock-body" aria-hidden="true">
+          <aside class="mock-side">
+            <div class="mock-brand"><span class="mark">◉</span> CourseLens</div>
+            <div class="mock-upload">＋ Upload material<small>PDF · PPTX · TXT · MD</small></div>
+            <div class="mock-doc"><span class="filetag">PDF</span><div><b>lecture-04-notes.pdf</b><small><em class="ok">completed</em></small></div></div>
+            <div class="mock-doc"><span class="filetag">SLD</span><div><b>slides-week2.pptx</b><small><em class="ok">completed</em></small></div></div>
+          </aside>
+          <div class="mock-chat">
+            <article class="mock-msg user">What are the four types of noun gender mentioned in my notes?</article>
+            <article class="mock-msg bot"><span class="state">ANSWERED · SOURCE-GROUNDED</span>Your notes list four genders: masculine, feminine, common, and neuter…</article>
+            <div class="mock-input">Ask a question about your course material…</div>
+          </div>
+          <aside class="mock-evidence">
+            <p class="mock-eyebrow">Evidence</p>
+            <div class="mock-source"><b>lecture-04-notes.pdf</b><small>Page 12 · PDF</small><p>“…nouns are classified into masculine, feminine, common, and neuter genders…”</p><span class="open">Open exact source ↗</span></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem / value proposition -->
+  <section id="product" class="section">
+    <p class="eyebrow">Why CourseLens</p>
+    <h2>Studying from scattered files is harder than it should be</h2>
+    <div class="split">
+      <div class="panel problems">
+        <h3>The problem</h3>
+        <ul>
+          <li>Course material lives in scattered PDFs, slide decks, scans, and text files.</li>
+          <li>Finding one specific concept means skimming page after page.</li>
+          <li>Keyword search misses context — it matches words, not meaning.</li>
+          <li>Generic chatbots answer from the internet, not from <strong>your</strong> material.</li>
+        </ul>
+      </div>
+      <div class="panel solutions">
+        <h3>How CourseLens addresses it</h3>
+        <ul>
+          <li>Upload your material once — PDFs, slides, text, Markdown, and images stay in one place.</li>
+          <li>Every page and slide is extracted, chunked, and indexed for meaning, not exact wording.</li>
+          <li>Semantic retrieval finds the passages that actually answer your question.</li>
+          <li>Answers are generated only from retrieved evidence, each with a page-level source you can open.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <p class="eyebrow">Features</p>
+    <h2>Built around evidence, not guesses</h2>
+    <div class="features">
+      <article class="feature">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <h3>Intelligent Document Search</h3>
+        <p>Find relevant information across your course material using semantic search.</p>
+      </article>
+      <article class="feature">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H4l2.5-2.5A8 8 0 1 1 21 12Z"/><path d="M9 11h.01M12.5 11h.01M16 11h.01"/></svg></div>
+        <h3>AI-Powered Q&amp;A</h3>
+        <p>Ask questions about your material and receive contextual answers.</p>
+      </article>
+      <article class="feature">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8l-5 4V6Z"/><path d="M8 9h8M8 12.5h5"/></svg></div>
+        <h3>Context-Aware Conversations</h3>
+        <p>Continue conversations while maintaining relevant context.</p>
+      </article>
+      <article class="feature">
+        <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Z"/><path d="M4 10h16"/></svg></div>
+        <h3>Course Material Management</h3>
+        <p>Keep your learning resources organized in one place.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="section">
+    <p class="eyebrow">How it works</p>
+    <h2>From raw files to grounded answers</h2>
+    <ol class="steps">
+      <li><span class="step-num">1</span><h3>Upload your material</h3><p>Add lecture PDFs, slide decks, text notes, Markdown, or scanned images.</p></li>
+      <li><span class="step-num">2</span><h3>CourseLens processes and indexes it</h3><p>Each page is extracted, chunked, and embedded into a vector index for meaning-based retrieval.</p></li>
+      <li><span class="step-num">3</span><h3>Ask questions or search</h3><p>Ask in your own words — retrieval finds the relevant passages across everything you uploaded.</p></li>
+      <li><span class="step-num">4</span><h3>Learn from contextual answers</h3><p>Get an answer tied to the exact page or slide it came from, and open the source directly.</p></li>
+    </ol>
+  </section>
+
+  <!-- Technology -->
+  <section id="technology" class="section">
+    <p class="eyebrow">Technology</p>
+    <h2>An honest, modern stack</h2>
+    <div class="tech-grid">
+      <article class="tech"><h3>Angular 19 + TypeScript</h3><p>Standalone-component frontend with a fast, typed single-page interface.</p></article>
+      <article class="tech"><h3>Spring Boot</h3><p>Java 17 backend exposing a small REST API with Spring MVC.</p></article>
+      <article class="tech"><h3>PostgreSQL + pgvector</h3><p>Vector(768) embeddings stored natively, queried with cosine distance over an HNSW index.</p></article>
+      <article class="tech"><h3>Vector embeddings</h3><p>Pages and questions are embedded for semantic similarity, not keyword matching.</p></article>
+      <article class="tech"><h3>Flyway migrations</h3><p>Schema and indexes are versioned and reproducible from day one.</p></article>
+      <article class="tech"><h3>AI / LLM integration</h3><p>Gemini powers embeddings, scanned-page vision transcription, and grounded answer generation.</p></article>
+    </div>
+  </section>
+
+  <!-- Product preview -->
+  <section id="preview" class="section">
+    <p class="eyebrow">Product preview</p>
+    <h2>One workspace for asking, reading, and verifying</h2>
+    <div class="mock wide" role="img" aria-label="Preview of the CourseLens workspace with materials on the left, a grounded conversation in the middle, and cited evidence on the right">
+      <div class="mock-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="mock-body" aria-hidden="true">
+        <aside class="mock-side">
+          <div class="mock-brand"><span class="mark">◉</span> CourseLens</div>
+          <div class="mock-upload">＋ Upload material<small>PDF · PPTX · TXT · MD · images</small></div>
+          <div class="mock-doc"><span class="filetag">PDF</span><div><b>lecture-04-notes.pdf</b><small>18 pages · <em class="ok">completed</em></small></div></div>
+          <div class="mock-doc"><span class="filetag">SLD</span><div><b>slides-week2.pptx</b><small>32 slides · <em class="ok">completed</em></small></div></div>
+          <div class="mock-doc"><span class="filetag">IMG</span><div><b>handwritten-scan.png</b><small>2 pages · <em class="ok">completed</em></small></div></div>
+        </aside>
+        <div class="mock-chat">
+          <p class="mock-eyebrow">Study assistant</p>
+          <article class="mock-msg user">What does the scan say about passive voice?</article>
+          <article class="mock-msg bot"><span class="state">ANSWERED · SOURCE-GROUNDED</span>Your handwritten scan defines passive voice as a construction where the subject receives the action, and gives the example “The book was read by the student”…</article>
+          <article class="mock-msg user">Give me an example from the slides.</article>
+          <article class="mock-msg bot"><span class="state">ANSWERED · SOURCE-GROUNDED</span>Slide 14 shows the sentence “The experiment was completed by the team”, with the agent highlighted in green…</article>
+          <div class="mock-input">Ask a question about your course material…</div>
+        </div>
+        <aside class="mock-evidence">
+          <p class="mock-eyebrow">Evidence</p>
+          <div class="mock-source"><b>slides-week2.pptx</b><small>Slide 14 · PPTX</small><p>“Passive: the experiment was completed by the team.”</p><span class="open">Open exact source ↗</span></div>
+          <div class="mock-source"><b>handwritten-scan.png</b><small>Page 2 · Handwritten scan</small><p>“Passive voice = subject receives the action…”</p><span class="open">Open exact source ↗</span></div>
+          <p class="mock-hint">Every answer keeps its evidence one click away.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <p class="eyebrow">About</p>
+    <h2>Early stage, openly built</h2>
+    <div class="about panel">
+      <p>CourseLens is an early-stage product under active development. It exists for one reason: studying from your own course material should be faster and more trustworthy than skimming files or asking a general-purpose chatbot. That is why every feature — ingestion, retrieval, and generation — is designed around answers that stay grounded in your uploads and can be traced back to the exact page they came from.</p>
+      <p class="muted">The product is evolving quickly, and the source is available on GitHub. No user counts, metrics, or endorsements are claimed on this page — just the product, as it is today.</p>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2>Your course material. One intelligent workspace.</h2>
+    <p>Upload something you are studying and ask your first question.</p>
+    <a class="btn btn-primary btn-lg" href="/app">Get Started</a>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand"><span class="mark" aria-hidden="true">◉</span>CourseLens</div>
+      <p>An AI-powered study assistant that answers only from your own course material — with every answer traceable to its source.</p>
+    </div>
+    <nav aria-label="Product links">
+      <h3>Product</h3>
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#preview">Product Preview</a>
+      <a href="/app">Open CourseLens</a>
+    </nav>
+    <nav aria-label="Project links">
+      <h3>Project</h3>
+      <a href="https://github.com/pj1234567890/courselens" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/pj1234567890/courselens/issues" target="_blank" rel="noopener noreferrer">Contact / Issues</a>
+    </nav>
+  </div>
+  <p class="copyright">© {{year}} CourseLens. Early-stage project, under active development.</p>
+</footer>
