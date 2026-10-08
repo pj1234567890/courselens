@@ -40,10 +40,11 @@ jobs:
         run: |
           PROJECT_NAME=$(node -p "Object.keys(require('./angular.json').projects)[0]")
           OUTPUT_PATH=$(node -p "require('./angular.json').projects[Object.keys(require('./angular.json').projects)[0]].architect.build.options.outputPath")
-          BROWSER_DIR="$OUTPUT_PATH/browser"
+          BUILDER=$(node -p "require('./angular.json').projects[Object.keys(require('./angular.json').projects)[0]].architect.build.builder")
           # The Angular `application` builder emits browser files into <outputPath>/browser;
-          # fall back to the raw outputPath for the legacy `browser` builder.
-          if [ ! -d "$BROWSER_DIR" ]; then BROWSER_DIR="$OUTPUT_PATH"; fi
+          # the legacy `browser` builder emits directly to <outputPath>.
+          BROWSER_DIR="$OUTPUT_PATH"
+          if [ "$BUILDER" = "@angular-devkit/build-angular:application" ]; then BROWSER_DIR="$OUTPUT_PATH/browser"; fi
           echo "project=$PROJECT_NAME" >> "$GITHUB_OUTPUT"
           echo "dir=frontend/$BROWSER_DIR" >> "$GITHUB_OUTPUT"
           echo "Resolved project '$PROJECT_NAME', browser output: frontend/$BROWSER_DIR"
